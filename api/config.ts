@@ -1,7 +1,18 @@
 import validateConfig from "@danielres/validate-config";
 
+const { env } = process;
+
 const config = {
-  PORT: [process.env.PORT_API, "port"],
+  PORT: [env.PORT_API, "port"],
+
+  auth: {
+    cookie: {
+      KEY1: [env.API_AUTH_COOKIE_KEY1_SECRET, "secret"],
+      KEY2: [env.API_AUTH_COOKIE_KEY2_SECRET, "secret"],
+      MAX_AGE_MINUTES: [env.API_AUTH_COOKIE_MAX_AGE_MINUTES, "number"],
+      SECURE: [env.SECURE !== "false", "boolean"],
+    },
+  },
 };
 
 export default validateConfig(getChecks())(config);

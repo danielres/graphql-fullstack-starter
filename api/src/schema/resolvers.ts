@@ -1,5 +1,6 @@
 export default {
   Query: {
-    hello: () => `Hello from resolver!`,
+    hello: (_: any, __: any, ctx: any) =>
+      `Hello from resolver! Views: ${ctx.req.session.views}`,
   },
 };
