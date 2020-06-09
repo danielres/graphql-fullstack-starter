@@ -6,10 +6,12 @@
   "private": true,
   "scripts": {
     "api": "env-cmd yarn workspace api run",
+    "db": "env-cmd yarn workspace db run",
     "ui": "env-cmd yarn workspace ui run"
   },
   "workspaces": [
     "api",
+    "db",
     "ui"
   ],
   "devDependencies": {
