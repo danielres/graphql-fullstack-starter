@@ -20,7 +20,7 @@ export default {
       ctx: any
     ) => {
       const { input } = args;
-      return true;
+      return { id: "123", name: "u1", email: input.email };
     },
   },
 };
