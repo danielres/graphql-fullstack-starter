@@ -3,6 +3,7 @@ import cookieSession from "cookie-session";
 import express from "express";
 import config from "../config";
 import context from "./context";
+import formatError from "./formatError";
 import resolvers from "./schema/resolvers";
 import typeDefs from "./schema/typeDefs";
 
@@ -13,6 +14,7 @@ const apollo = new ApolloServer({
   typeDefs,
   resolvers,
   context,
+  formatError,
 });
 
 const server = express();
