@@ -9,7 +9,8 @@
     "migrate:save": "./bin/migrate-save.sh",
     "migrate:up": "yarn prisma migrate up --experimental",
     "migrate:down": "yarn prisma migrate down --experimental",
-    "prisma:generate": "yarn prisma generate"
+    "prisma:generate": "yarn prisma generate",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@danielres/validate-config": "^0.0.11",
