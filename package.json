@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "api": "yarn workspace api run",
-    "ui": "yarn workspace ui run"
+    "api": "env-cmd yarn workspace api run",
+    "ui": "env-cmd yarn workspace ui run"
   },
   "workspaces": [
     "api",
