@@ -5,7 +5,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "tsnd src"
+    "dev": "tsnd src",
+    "migrate:save": "./bin/migrate-save.sh",
+    "migrate:up": "yarn prisma migrate up --experimental",
+    "migrate:down": "yarn prisma migrate down --experimental"
   },
   "dependencies": {
     "@danielres/validate-config": "^0.0.11",
