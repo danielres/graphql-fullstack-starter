@@ -2,6 +2,7 @@ import { ApolloServer } from "apollo-server-express";
 import cookieSession from "cookie-session";
 import express from "express";
 import config from "../config";
+import context from "./context";
 import resolvers from "./schema/resolvers";
 import typeDefs from "./schema/typeDefs";
 
@@ -11,7 +12,7 @@ const { KEY1, KEY2, MAX_AGE_MINUTES, SECURE } = config.auth.cookie;
 const apollo = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req, res }) => ({ req, res }),
+  context,
 });
 
 const server = express();
