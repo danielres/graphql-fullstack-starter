@@ -1,12 +1,21 @@
-import Express from "express";
+import { ApolloServer } from "apollo-server-express";
+import express, { Request, Response } from "express";
 import config from "../config";
-
-const express = Express();
+import resolvers from "./schema/resolvers";
+import typeDefs from "./schema/typeDefs";
 
 const { PORT } = config;
 
-express.get("/", (req, res) => res.send("Hello world!"));
+const apollo = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: (req: Request, res: Response) => ({ req, res }),
+});
 
-express.listen(PORT, () => {
-  console.log(`API ready on http://localhost:${PORT}`);
+const server = express();
+
+apollo.applyMiddleware({ app: server });
+
+server.listen(PORT, () => {
+  console.log(`API: http://localhost:${PORT}${apollo.graphqlPath}`);
 });
