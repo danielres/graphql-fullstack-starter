@@ -17,6 +17,7 @@
     "typescript": "^3.9.5"
   },
   "devDependencies": {
+    "@types/cookie-session": "^2.0.40",
     "@types/express": "^4.17.6",
     "@types/node": "^14.0.12"
   }
