@@ -14,8 +14,8 @@ const reportUnknownError = (error: GraphQLError) => {
 };
 
 export default (error: GraphQLError): ApolloError | Error => {
-  if (error instanceof ApolloError)
-    if (error.extensions.exception.isSafeError) return error;
+  if (error instanceof GraphQLError)
+    if (error.extensions?.exception.isSafeError) return error;
 
   reportUnknownError(error);
   return new UnknownError();
