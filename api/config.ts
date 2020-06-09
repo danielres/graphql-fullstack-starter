@@ -19,7 +19,7 @@ export default validateConfig(getChecks())(config);
 
 function getChecks() {
   return {
-    array: [Array.isArray, (v: any[]) => v, "should be an array"],
+    array: [Array.isArray, (v: unknown[]) => v, "should be an array"],
     port: [
       (v: number) => Number.isInteger(v) && v > 0,
       Number,

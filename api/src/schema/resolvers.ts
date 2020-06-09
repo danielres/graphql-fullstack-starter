@@ -1,28 +1,37 @@
+/* eslint-disable no-empty-pattern */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import bcrypt from "bcrypt";
+import { Ctx } from "../context";
 import SignupError from "../errors/SignupError";
 import arrayMatches from "../utils/arrayMatches";
 
+interface SigninArgs {
+  input: {
+    email: string;
+    password: string;
+  };
+}
+interface SignupArgs {
+  input: {
+    email: string;
+    name: string;
+    password: string;
+  };
+}
+
 export default {
   Query: {
-    hello: (_: any, __: any, ctx: any) =>
+    hello: ({}, {}, ctx: Ctx) =>
       `Hello from resolver! Views: ${ctx.req.session.views}`,
   },
 
   Mutation: {
-    signin: (
-      _: any,
-      args: { input: { email: string; password: string } },
-      ctx: any
-    ) => {
+    signin: ({}, args: SigninArgs) => {
       const { input } = args;
       return { id: "123", name: "u1", email: input.email };
     },
 
-    signup: async (
-      _: any,
-      args: { input: { email: string; name: string; password: string } },
-      ctx: any
-    ) => {
+    signup: async ({}, args: SignupArgs, ctx: Ctx) => {
       try {
         const { password, ...rest } = args.input;
         const hashed = await bcrypt.hash(password, 1);

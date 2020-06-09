@@ -2,7 +2,7 @@ import { ApolloError } from "apollo-server-express";
 import { GraphQLError } from "graphql";
 import UnknownError from "./errors/UnknownError";
 
-const reportUnknownError = (error: Error) => {
+const reportUnknownError = (error: GraphQLError) => {
   // TODO: use actual error logging/reporting service like Sentry
   console.error("\n");
   console.error("== UNKOWN ERROR ".padEnd(70, "="));
@@ -13,7 +13,7 @@ const reportUnknownError = (error: Error) => {
   console.error("\n");
 };
 
-export default (error: GraphQLError) => {
+export default (error: GraphQLError): ApolloError | Error => {
   if (error instanceof ApolloError)
     if (error.extensions.exception.isSafeError) return error;
 
