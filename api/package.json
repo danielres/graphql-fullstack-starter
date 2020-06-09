@@ -1,0 +1,7 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "author": "Daniel Reszka <dannn.r@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
