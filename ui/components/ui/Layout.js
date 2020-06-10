@@ -9,7 +9,7 @@ export default ({ children }) => {
       </nav>
       <div className="container mx-auto flex-grow flex flex-col">
         <main className="px-4 py-4 flex-grow bg-white shadow-lg rounded">
-          Main
+          {children}
         </main>
         <footer className="px-4 py-4 text-gray-600">Footer</footer>
       </div>
