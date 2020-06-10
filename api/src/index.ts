@@ -7,8 +7,8 @@ import formatError from "./formatError";
 import resolvers from "./schema/resolvers";
 import typeDefs from "./schema/typeDefs";
 
-const { PORT } = config;
-const { KEY1, KEY2, MAX_AGE_MINUTES, SECURE } = config.auth.cookie;
+const { PORT, SECURE } = config;
+const { KEY1, KEY2, MAX_AGE_MINUTES } = config.auth.cookie;
 
 const apollo = new ApolloServer({
   typeDefs,
