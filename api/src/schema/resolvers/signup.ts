@@ -4,6 +4,9 @@ import bcrypt from "bcrypt";
 import { Ctx } from "../../context";
 import SignupError from "../../errors/SignupError";
 import arrayMatches from "../../utils/arrayMatches";
+import config from "../../../config";
+
+const { SALT_ROUNDS } = config.bcrypt;
 
 interface SignupArgs {
   input: {
@@ -16,7 +19,7 @@ interface SignupArgs {
 export default async ({}, args: SignupArgs, ctx: Ctx) => {
   try {
     const { password, ...rest } = args.input;
-    const hashed = await bcrypt.hash(password, 1);
+    const hashed = await bcrypt.hash(password, SALT_ROUNDS);
     return await ctx.db.user.create({
       data: { ...rest, password: hashed },
     });

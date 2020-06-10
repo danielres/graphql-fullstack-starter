@@ -2,9 +2,18 @@ import validateConfig from "@danielres/validate-config";
 
 const { env } = process;
 
+const SECURE = env.SECURE !== "false";
+
 const config = {
   PORT: [env.PORT_API, "port"],
-  SECURE: [env.SECURE !== "false", "boolean"],
+  SECURE: [SECURE, "boolean"],
+
+  bcrypt: {
+    SALT_ROUNDS: [
+      env.BCRYPT_SALT_ROUNDS,
+      SECURE ? "saltRoundsSecure" : "saltRoundsInsecure",
+    ],
+  },
 
   auth: {
     cookie: {

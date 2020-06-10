@@ -13,6 +13,8 @@ const env = {
   API_AUTH_COOKIE_KEY2_SECRET: "secret-870oh3beucgTTIFCKJuihoew",
   API_AUTH_COOKIE_MAX_AGE_MINUTES: 60,
 
+  BCRYPT_SALT_ROUNDS: 1,
+
   PG_DB: `proto_${NODE_ENV}`,
   PG_PASSWORD: "proto",
   PG_USER: "proto",
