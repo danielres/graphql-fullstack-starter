@@ -9,6 +9,7 @@ export default gql`
   type Mutation {
     signin(input: InputSignin!): User
     signup(input: InputSignup!): User!
+    signout: Boolean!
   }
 
   ### Scalars

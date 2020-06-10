@@ -3,6 +3,7 @@
 import { Ctx } from "../context";
 import me from "./resolvers/me";
 import signin from "./resolvers/signin";
+import signout from "./resolvers/signout";
 import signup from "./resolvers/signup";
 
 export default {
@@ -14,6 +15,7 @@ export default {
 
   Mutation: {
     signin,
+    signout,
     signup,
   },
 };
