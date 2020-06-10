@@ -8,6 +8,14 @@ const config = {
   PORT: [env.PORT_API, "port"],
   SECURE: [SECURE, "boolean"],
 
+  auth: {
+    cookie: {
+      KEY1: [env.API_AUTH_COOKIE_KEY1_SECRET, "secret"],
+      KEY2: [env.API_AUTH_COOKIE_KEY2_SECRET, "secret"],
+      MAX_AGE_MINUTES: [env.API_AUTH_COOKIE_MAX_AGE_MINUTES, "number"],
+    },
+  },
+
   bcrypt: {
     SALT_ROUNDS: [
       env.BCRYPT_SALT_ROUNDS,
@@ -15,12 +23,8 @@ const config = {
     ],
   },
 
-  auth: {
-    cookie: {
-      KEY1: [env.API_AUTH_COOKIE_KEY1_SECRET, "secret"],
-      KEY2: [env.API_AUTH_COOKIE_KEY2_SECRET, "secret"],
-      MAX_AGE_MINUTES: [env.API_AUTH_COOKIE_MAX_AGE_MINUTES, "number"],
-    },
+  cors: {
+    ORIGIN: [env.CORS_ORIGIN, "string"],
   },
 };
 

@@ -9,6 +9,7 @@ import typeDefs from "./schema/typeDefs";
 
 const { PORT, SECURE } = config;
 const { KEY1, KEY2, MAX_AGE_MINUTES } = config.auth.cookie;
+const { ORIGIN } = config.cors;
 
 const apollo = new ApolloServer({
   typeDefs,
@@ -37,7 +38,10 @@ server.use((req, res, next) => {
   next();
 });
 
-apollo.applyMiddleware({ app: server });
+apollo.applyMiddleware({
+  app: server,
+  cors: { origin: ORIGIN, credentials: true },
+});
 
 server.listen(PORT, () => {
   console.log(`API: http://localhost:${PORT}${apollo.graphqlPath}`);
