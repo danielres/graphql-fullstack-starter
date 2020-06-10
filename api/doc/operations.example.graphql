@@ -1,0 +1,19 @@
+query Hello {
+  hello
+}
+
+mutation Signup {
+  signup(input: { name: "u1", email: "u1@example.com", password: "pwd" }) {
+    id
+    name
+    email
+  }
+}
+
+mutation Signin {
+  signin(input: { email: "u1@example.com", password: "pwd" }) {
+    id
+    name
+    email
+  }
+}
