@@ -24,4 +24,6 @@ const env = {
 
 env.PG_URL = `postgresql://${env.PG_USER}:${env.PG_PASSWORD}@localhost:${env.PORT_PG}/${env.PG_DB}?schema=public`;
 
+env.NEXT_PUBLIC_GRAPHQL_URL = `http://localhost:${env.PORT_API}/graphql`;
+
 module.exports = env;
