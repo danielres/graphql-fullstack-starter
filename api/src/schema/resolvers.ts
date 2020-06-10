@@ -1,6 +1,7 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Ctx } from "../context";
+import signin from "./resolvers/signin";
 import signup from "./resolvers/signup";
 
 interface SigninArgs {
@@ -24,10 +25,7 @@ export default {
   },
 
   Mutation: {
-    signin: ({}, args: SigninArgs) => {
-      const { input } = args;
-      return { id: "123", name: "u1", email: input.email };
-    },
+    signin,
     signup,
   },
 };
