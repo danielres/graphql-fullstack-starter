@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 export default gql`
   type Query {
     hello: String!
+    me: User
   }
 
   type Mutation {
@@ -33,7 +34,6 @@ export default gql`
     id: String!
     name: String!
     email: String!
-    password: String!
     createdAt: DateTime!
     updatedAt: DateTime
   }
