@@ -5,4 +5,5 @@ const { URL } = config.graphql;
 
 export default new ApolloClient({
   uri: URL,
+  credentials: "include",
 });
