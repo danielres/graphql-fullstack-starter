@@ -1,12 +1,12 @@
-import Head from "next/head";
-import Layout from "../components/ui/Layout";
-import * as queries from "../queries.js";
 import { useQuery } from "@apollo/react-hooks";
+import Layout from "../components/ui/Layout";
+import Spinner from "../components/ui/Spinner";
+import * as queries from "../queries.js";
 
 export default () => {
   const { data, loading } = useQuery(queries.HELLO);
 
-  if (!data) return "Loading...";
+  if (loading) return <Spinner center />;
 
   return (
     <Layout>

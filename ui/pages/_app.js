@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import FormSignin from "../components/forms/FormSignin";
 import Card from "../components/ui/Card";
+import Spinner from "../components/ui/Spinner";
 import Providers from "../Providers";
 import * as queries from "../queries";
 import "./global.css";
@@ -27,9 +28,7 @@ function AuthGate({ children }) {
       </div>
     );
 
-  if (loading) return <div>Loading...</div>;
-
-  if (!data) return <div>Loading...</div>;
+  if (loading) return <Spinner center />;
 
   return children;
 }
