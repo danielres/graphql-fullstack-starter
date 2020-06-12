@@ -1,10 +1,14 @@
 import { useQuery } from "@apollo/react-hooks";
+import { useRouter } from "next/router";
 import FormSignin from "../components/forms/FormSignin";
-import Card from "../components/ui/Card";
+import Layout from "../components/ui/Layout";
 import Spinner from "../components/ui/Spinner";
+import config from "../config";
 import Providers from "../Providers";
 import * as queries from "../queries";
 import "./global.css";
+
+const { PUBLIC } = config.routes;
 
 export default ({ Component, pageProps }) => {
   return (
@@ -18,14 +22,15 @@ export default ({ Component, pageProps }) => {
 
 function AuthGate({ children }) {
   const { data, loading, error, refetch } = useQuery(queries.ME);
+  const router = useRouter();
+
+  if (PUBLIC.includes(router.pathname)) return children;
 
   if (error)
     return (
-      <div className="w-64 mx-auto mt-24">
-        <Card>
-          <FormSignin onSuccess={refetch} />
-        </Card>
-      </div>
+      <Layout variant="card">
+        <FormSignin onSuccess={refetch} />
+      </Layout>
     );
 
   if (loading) return <Spinner center />;
