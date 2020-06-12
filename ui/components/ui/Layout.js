@@ -1,8 +1,26 @@
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import React from "react";
 import * as queries from "../../queries";
+import Card from "./Card";
 
-export default ({ children }) => {
+const variants = {
+  CARD: "card",
+};
+
+export default ({ children, variant }) => {
+  if (variant === variants.CARD) return <LayoutCard children={children} />;
+  return <LayoutDefault children={children} />;
+};
+
+function LayoutCard({ children }) {
+  return (
+    <div className="w-64 mx-auto mt-24">
+      <Card>{children}</Card>
+    </div>
+  );
+}
+
+function LayoutDefault({ children }) {
   return (
     <div className="flex flex-col h-screen bg-gray-200">
       <nav className="bg-black text-white mb-8">
@@ -19,7 +37,7 @@ export default ({ children }) => {
       </div>
     </div>
   );
-};
+}
 
 function NavContent() {
   const [signout, { data, loading }] = useMutation(queries.SIGNOUT, {
