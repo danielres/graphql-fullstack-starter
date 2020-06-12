@@ -54,7 +54,11 @@ function NavContent() {
   return (
     <div className="flex justify-between text-sm">
       <ul>
-        <li>Home</li>
+        <li>
+          <Link href="/">
+            <a className="hover:underline">Home</a>
+          </Link>
+        </li>
       </ul>
 
       <ul className="flex">
