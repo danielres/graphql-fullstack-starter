@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/react-hooks";
 import { useState } from "react";
 import { FormContext, useForm } from "react-hook-form";
+import Link from "next/link";
 import * as queries from "../../queries";
 import Button from "../ui/Button";
 import AsyncError from "../ui/forms/AsyncError";
@@ -31,9 +32,17 @@ export default ({ onSuccess }) => {
 
         <FormRow label="Password" name="password" required password />
 
-        <Button primary submit>
-          Signin
-        </Button>
+        <div className="flex justify-between">
+          <Button primary submit>
+            Sign in
+          </Button>
+
+          <Link href="/signup" passHref>
+            <Button as="a" className="text-link-muted">
+              Signup
+            </Button>
+          </Link>
+        </div>
       </form>
     </FormContext>
   );
