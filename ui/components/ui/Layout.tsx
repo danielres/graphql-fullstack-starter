@@ -1,19 +1,20 @@
 import { useApolloClient, useMutation, useQuery } from "@apollo/react-hooks";
-import React from "react";
 import Link from "next/link";
+import React from "react";
 import * as queries from "../../queries";
 import Card from "./Card";
 
-const variants = {
-  CARD: "card",
-};
+interface IProps {
+  children: JSX.Element;
+  variant?: "card";
+}
 
-export default ({ children, variant }) => {
-  if (variant === variants.CARD) return <LayoutCard children={children} />;
-  return <LayoutDefault children={children} />;
-};
+export default function Layout({ children, variant }: IProps): JSX.Element {
+  if (variant === "card") return <LayoutCard>{children}</LayoutCard>;
+  return <LayoutDefault>{children}</LayoutDefault>;
+}
 
-function LayoutCard({ children }) {
+function LayoutCard({ children }: { children: JSX.Element }) {
   return (
     <div className="w-64 mx-auto mt-24">
       <Card>{children}</Card>
@@ -21,7 +22,7 @@ function LayoutCard({ children }) {
   );
 }
 
-function LayoutDefault({ children }) {
+function LayoutDefault({ children }: { children: JSX.Element }) {
   return (
     <div className="flex flex-col h-screen bg-gray-200">
       <nav className="bg-black text-white mb-8">
@@ -43,13 +44,18 @@ function LayoutDefault({ children }) {
 function NavContent() {
   const apolloClient = useApolloClient();
 
-  const [signout, { data, loading }] = useMutation(queries.SIGNOUT, {
+  const { data } = useQuery(queries.ME);
+  const { me } = data;
+
+  const [signout] = useMutation(queries.SIGNOUT, {
     refetchQueries: ["Me"],
   });
 
-  const {
-    data: { me },
-  } = useQuery(queries.ME);
+  const onClickSignout = async () => {
+    await signout();
+    apolloClient.stop();
+    document.location.reload();
+  };
 
   return (
     <div className="flex justify-between text-sm">
@@ -71,11 +77,8 @@ function NavContent() {
         <li>
           <button
             className="hover:underline text-gray-400"
-            onClick={async () => {
-              await signout();
-              apolloClient.stop();
-              location.reload();
-            }}
+            onClick={onClickSignout}
+            type="submit"
           >
             Signout
           </button>

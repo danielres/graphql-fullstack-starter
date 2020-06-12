@@ -1,6 +1,16 @@
+import { ApolloError } from "apollo-boost";
+import React from "react";
 import Alert from "../Alert";
 
-export default ({ asyncError, dismiss }) => {
+interface IProps {
+  asyncError?: ApolloError;
+  dismiss?: () => void;
+}
+
+export default function AsyncError({
+  asyncError,
+  dismiss,
+}: IProps): JSX.Element | null {
   if (!asyncError) return null;
 
   return (
@@ -8,4 +18,4 @@ export default ({ asyncError, dismiss }) => {
       {asyncError.graphQLErrors[0].message}
     </Alert>
   );
-};
+}

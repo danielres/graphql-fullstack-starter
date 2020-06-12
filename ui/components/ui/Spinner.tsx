@@ -1,7 +1,11 @@
 import classnames from "classnames";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default ({ center }) => {
+interface IProps {
+  center?: boolean;
+}
+
+export default function Spinner({ center }: IProps): JSX.Element {
   const [opacityClass, setOpacityClass] = useState("opacity-0");
 
   useEffect(() => {
@@ -17,7 +21,7 @@ export default ({ center }) => {
           "inline-block",
           "loader ease-linear rounded-full border-b-2 border-l-2 h-12 w-12 border-gray-400"
         )}
-      ></div>
+      />
       <style jsx>
         {`
           .loader {
@@ -46,4 +50,4 @@ export default ({ center }) => {
       </style>
     </div>
   );
-};
+}

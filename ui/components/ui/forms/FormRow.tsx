@@ -1,3 +1,4 @@
+import React from "react";
 import { useFormContext } from "react-hook-form";
 
 const patterns = {
@@ -12,12 +13,21 @@ const patterns = {
   },
 };
 
-const FormRowError = ({ error }) => {
+const FormRowError = ({ error }: { error: Error }) => {
   if (error) return <div className="text-red-600 text-sm">{error.message}</div>;
   return null;
 };
 
-export default ({
+interface IProps {
+  email?: boolean;
+  password?: boolean;
+  required?: boolean;
+  label?: string;
+  name: string;
+  placeholder?: string;
+}
+
+export default function FormRow({
   email,
   password,
   required,
@@ -25,23 +35,27 @@ export default ({
   name,
   placeholder,
   ...rest
-}) => {
+}: IProps): JSX.Element {
   const { register, errors } = useFormContext();
 
   const getPattern = () => {
     if (email) return patterns.email;
     if (password) return patterns.password;
+    return undefined;
   };
+
+  const id = `${name}-${Math.random()}`;
 
   return (
     <div className="mb-4">
-      <label className="block">
+      <label className="block" htmlFor={id}>
         {label && (
           <span className="block text-gray-600 font-bold">{label}</span>
         )}
 
         <input
           className="form-input block w-full"
+          id={id}
           name={name}
           placeholder={placeholder}
           ref={register({
@@ -56,4 +70,4 @@ export default ({
       <FormRowError error={errors[name]} />
     </div>
   );
-};
+}

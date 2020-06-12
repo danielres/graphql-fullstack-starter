@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import FormSignup from "../components/forms/FormSignup";
 import Layout from "../components/ui/Layout";
 
-export default () => {
+export default function PageSignup(): JSX.Element {
   const [isSuccess, setIsSuccess] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ export default () => {
       )}
     </Layout>
   );
-};
+}
 
 function SuccessMessage() {
   return (

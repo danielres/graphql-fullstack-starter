@@ -1,25 +1,35 @@
 import { useMutation } from "@apollo/react-hooks";
-import { useState } from "react";
-import { FormContext, useForm } from "react-hook-form";
 import Link from "next/link";
+import React, { useState } from "react";
+import { FormContext, useForm } from "react-hook-form";
 import * as queries from "../../queries";
 import Button from "../ui/Button";
 import AsyncError from "../ui/forms/AsyncError";
 import FormRow from "../ui/forms/FormRow";
 
-export default ({ onSuccess }) => {
-  const { handleSubmit, ...rest } = useForm();
+interface IProps {
+  onSuccess: () => unknown;
+}
 
-  const [signin, { data, loading, error }] = useMutation(queries.SIGNIN);
+export default function FormSignin({ onSuccess }: IProps): JSX.Element {
+  const methods = useForm();
+
+  const [signin] = useMutation(queries.SIGNIN);
   const [asyncError, setAsyncError] = useState();
-  const dismissAsyncError = () => setAsyncError();
+  const dismissAsyncError = () => setAsyncError(undefined);
 
-  const onSubmit = (input) =>
-    signin({ variables: { input } }).then(onSuccess).catch(setAsyncError);
+  const onSubmit = async (input: { [key: string]: string }) => {
+    try {
+      await signin({ variables: { input } });
+      onSuccess();
+    } catch (error) {
+      setAsyncError(error);
+    }
+  };
 
   return (
-    <FormContext {...rest}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <FormContext {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         <AsyncError asyncError={asyncError} dismiss={dismissAsyncError} />
 
         <FormRow
@@ -46,4 +56,4 @@ export default ({ onSuccess }) => {
       </form>
     </FormContext>
   );
-};
+}

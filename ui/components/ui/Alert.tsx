@@ -1,4 +1,5 @@
 import classnames from "classnames";
+import React from "react";
 
 const variants = {
   danger: "bg-red-200 text-red-900",
@@ -6,7 +7,19 @@ const variants = {
   success: "bg-green-200 text-green-900",
 };
 
-export default ({ className, dismiss, children, type = "info" }) => {
+interface IProps {
+  children: JSX.Element | string;
+  type: "danger" | "info" | "success";
+  className?: string;
+  dismiss?: () => void;
+}
+
+export default function Alert({
+  children,
+  className,
+  dismiss,
+  type = "info",
+}: IProps): JSX.Element {
   return (
     <div
       className={classnames(
@@ -17,10 +30,11 @@ export default ({ className, dismiss, children, type = "info" }) => {
     >
       {dismiss && (
         <button
-          className="absolute top-0 right-0 leading-none mr-1 text-xl font-bold opacity-25 hover:opacity-100"
           aria-label="dismiss"
-          title="dismiss"
+          className="absolute top-0 right-0 leading-none mr-1 text-xl font-bold opacity-25 hover:opacity-100"
           onClick={dismiss}
+          title="dismiss"
+          type="button"
         >
           ×
         </button>
@@ -28,4 +42,4 @@ export default ({ className, dismiss, children, type = "info" }) => {
       {children}
     </div>
   );
-};
+}

@@ -1,11 +1,11 @@
+import { useQuery } from "@apollo/react-hooks";
+import React from "react";
 import Layout from "../components/ui/Layout";
-import { useApolloClient, useMutation, useQuery } from "@apollo/react-hooks";
 import * as queries from "../queries";
 
-export default () => {
-  const {
-    data: { me },
-  } = useQuery(queries.ME);
+export default function PageProfile(): JSX.Element {
+  const { data } = useQuery(queries.ME);
+  const { me } = data;
 
   return (
     <Layout>
@@ -23,4 +23,4 @@ export default () => {
       </table>
     </Layout>
   );
-};
+}

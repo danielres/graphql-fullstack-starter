@@ -10,10 +10,10 @@ const config = {
   },
 };
 
-export default validateConfig(getChecks())(config);
-
 function getChecks() {
   return {
-    array: [Array.isArray, (v) => v, "should be an array"],
+    array: [Array.isArray, (v: unknown[]) => v, "should be an array"],
   };
 }
+
+export default validateConfig(getChecks())(config);
