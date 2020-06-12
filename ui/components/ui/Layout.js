@@ -1,5 +1,6 @@
-import { useApolloClient, useMutation } from "@apollo/react-hooks";
+import { useApolloClient, useMutation, useQuery } from "@apollo/react-hooks";
 import React from "react";
+import Link from "next/link";
 import * as queries from "../../queries";
 import Card from "./Card";
 
@@ -40,18 +41,29 @@ function LayoutDefault({ children }) {
 }
 
 function NavContent() {
+  const apolloClient = useApolloClient();
+
   const [signout, { data, loading }] = useMutation(queries.SIGNOUT, {
     refetchQueries: ["Me"],
   });
-  const apolloClient = useApolloClient();
+
+  const {
+    data: { me },
+  } = useQuery(queries.ME);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between text-sm">
       <ul>
         <li>Home</li>
       </ul>
 
-      <ul>
+      <ul className="flex">
+        <li className="mr-4">
+          <Link href="/profile">
+            <a className="hover:underline">{me.email}</a>
+          </Link>
+        </li>
+
         <li>
           <button
             className="hover:underline text-gray-400"
