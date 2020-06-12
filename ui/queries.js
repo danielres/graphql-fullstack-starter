@@ -21,9 +21,7 @@ export const ME = gql`
 export const SIGNIN = gql`
   mutation Signin($input: InputSignin!) {
     signin(input: $input) {
-      id
-      name
-      email
+      ${userFields}
     }
   }
 `;
@@ -31,5 +29,13 @@ export const SIGNIN = gql`
 export const SIGNOUT = gql`
   mutation Signout {
     signout
+  }
+`;
+
+export const SIGNUP = gql`
+  mutation Signup($input: InputSignup!) {
+    signup(input: $input) {
+      ${userFields}
+    }
   }
 `;
