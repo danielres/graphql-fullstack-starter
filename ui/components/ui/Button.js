@@ -2,20 +2,28 @@ import classnames from "classnames";
 import React from "react";
 
 const css = {
-  primary:
-    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+  primary: "bg-blue-500 hover:bg-blue-700 text-white font-bold",
 };
 
-export default ({ children, primary, submit, ...props }) => {
+export default ({
+  as = "button",
+  className,
+  children,
+  primary,
+  submit,
+  ...props
+}) => {
+  const Element = as;
+
   return (
-    <button
-      className={classnames({
+    <Element
+      className={classnames("py-2 px-4 rounded inline-block", className, {
         [css.primary]: primary,
       })}
       {...(submit && { type: submit })}
       {...props}
     >
       {children}
-    </button>
+    </Element>
   );
 };
