@@ -7,11 +7,13 @@
   "scripts": {
     "dev": "run-p  'api dev' 'ui dev'",
     "api": "env-cmd yarn workspace api run",
+    "codegen": "env-cmd yarn workspace codegen run",
     "db": "env-cmd yarn workspace db run",
     "ui": "env-cmd yarn workspace ui run"
   },
   "workspaces": [
     "api",
+    "codegen",
     "db",
     "ui"
   ],
