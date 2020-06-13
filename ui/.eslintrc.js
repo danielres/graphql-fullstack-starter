@@ -31,4 +31,5 @@ module.exports = {
     "prettier/prettier": "error",
     "react/jsx-props-no-spreading": 0,
   },
+  ignorePatterns: ["/generated"],
 };
