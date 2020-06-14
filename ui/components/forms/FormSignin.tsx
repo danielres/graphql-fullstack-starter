@@ -1,19 +1,21 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { FormContext, useForm } from "react-hook-form";
-import {
-  useSigninMutation,
-  refetchMeQuery,
-} from "../../generated/react-apollo";
+import { MeDocument, useSigninMutation } from "../../generated/react-apollo";
 import Button from "../ui/Button";
 import AsyncError from "../ui/forms/AsyncError";
 import FormRow from "../ui/forms/FormRow";
 
 export default function FormSignin(): JSX.Element {
   const form = useForm();
-
-  const [signin] = useSigninMutation({ refetchQueries: [refetchMeQuery()] });
   const [asyncError, setAsyncError] = useState();
+
+  const [signin] = useSigninMutation({
+    update: (store, { data }) => {
+      store.writeQuery({ query: MeDocument, data: { me: data?.signin } });
+    },
+  });
+
   const dismissAsyncError = () => setAsyncError(undefined);
 
   const onSubmit = async (input: Record<"email" | "password", string>) => {
