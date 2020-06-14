@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "run-p  'api dev' 'ui dev'",
+    "dev": "run-p  'api dev' 'ui dev' 'codegen watch'",
     "api": "env-cmd yarn workspace api run",
     "codegen": "env-cmd yarn workspace codegen run",
     "db": "env-cmd yarn workspace db run",
