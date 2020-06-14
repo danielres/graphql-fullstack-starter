@@ -1,19 +1,31 @@
+fragment userFields on User {
+  id
+  name
+  email
+}
+
 query Hello {
   hello
 }
 
-mutation Signup {
-  signup(input: { name: "u1", email: "u1@example.com", password: "pwd" }) {
-    id
-    name
-    email
+query Me {
+  me {
+    ...userFields
   }
 }
 
-mutation Signin {
-  signin(input: { email: "u1@example.com", password: "pwd" }) {
-    id
-    name
-    email
+mutation Signin($input: InputSignin!) {
+  signin(input: $input) {
+    ...userFields
+  }
+}
+
+mutation Signout {
+  signout
+}
+
+mutation Signup($input: InputSignup!) {
+  signup(input: $input) {
+    ...userFields
   }
 }

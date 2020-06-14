@@ -1,35 +1,28 @@
-import { useMutation } from "@apollo/react-hooks";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FormContext, useForm } from "react-hook-form";
-import * as queries from "../../queries";
+import {
+  useSigninMutation,
+  refetchMeQuery,
+} from "../../generated/react-apollo";
 import Button from "../ui/Button";
 import AsyncError from "../ui/forms/AsyncError";
 import FormRow from "../ui/forms/FormRow";
 
-interface IProps {
-  onSuccess: () => unknown;
-}
+export default function FormSignin(): JSX.Element {
+  const form = useForm();
 
-export default function FormSignin({ onSuccess }: IProps): JSX.Element {
-  const methods = useForm();
-
-  const [signin] = useMutation(queries.SIGNIN);
+  const [signin] = useSigninMutation({ refetchQueries: [refetchMeQuery()] });
   const [asyncError, setAsyncError] = useState();
   const dismissAsyncError = () => setAsyncError(undefined);
 
-  const onSubmit = async (input: { [key: string]: string }) => {
-    try {
-      await signin({ variables: { input } });
-      onSuccess();
-    } catch (error) {
-      setAsyncError(error);
-    }
+  const onSubmit = async (input: Record<"email" | "password", string>) => {
+    signin({ variables: { input } }).catch(setAsyncError);
   };
 
   return (
-    <FormContext {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+    <FormContext {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <AsyncError asyncError={asyncError} dismiss={dismissAsyncError} />
 
         <FormRow

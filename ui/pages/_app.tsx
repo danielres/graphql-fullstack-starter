@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/react-hooks";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import React from "react";
@@ -6,8 +5,8 @@ import FormSignin from "../components/forms/FormSignin";
 import Layout from "../components/ui/Layout";
 import Spinner from "../components/ui/Spinner";
 import config from "../config";
+import { useMeQuery } from "../generated/react-apollo";
 import Providers from "../Providers";
-import * as queries from "../queries";
 import "./global.css";
 
 const { PUBLIC } = config.routes;
@@ -23,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 }
 
 function AuthGate({ children }: { children: JSX.Element }) {
-  const { loading, error, refetch } = useQuery(queries.ME);
+  const { loading, error } = useMeQuery();
   const router = useRouter();
 
   if (PUBLIC.includes(router.pathname)) return children;
@@ -31,7 +30,7 @@ function AuthGate({ children }: { children: JSX.Element }) {
   if (error)
     return (
       <Layout variant="card">
-        <FormSignin onSuccess={refetch} />
+        <FormSignin />
       </Layout>
     );
 

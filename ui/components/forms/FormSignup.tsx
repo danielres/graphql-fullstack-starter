@@ -1,8 +1,7 @@
-import { useMutation } from "@apollo/react-hooks";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FormContext, useForm } from "react-hook-form";
-import * as queries from "../../queries";
+import { useSignupMutation } from "../../generated/react-apollo";
 import Button from "../ui/Button";
 import AsyncError from "../ui/forms/AsyncError";
 import FormRow from "../ui/forms/FormRow";
@@ -12,18 +11,20 @@ interface IProps {
 }
 
 export default function ForSignup({ onSuccess }: IProps): JSX.Element {
-  const methods = useForm();
+  const form = useForm();
 
-  const [signup] = useMutation(queries.SIGNUP);
+  const [signup] = useSignupMutation();
   const [asyncError, setAsyncError] = useState();
   const dismissAsyncError = () => setAsyncError(undefined);
 
   const onSubmit = async ({
     password2,
     ...input
-  }: {
-    [key: string]: string;
-  }) => {
+  }: Record<"email" | "password" | "password2" | "name", string>) => {
+    if (password2 !== input.password) {
+      form.setError("password", "noMatch", "Passwords don't match");
+      form.setError("password2", "noMatch", "Passwords don't match");
+    }
     try {
       await signup({ variables: { input } });
       onSuccess();
@@ -33,8 +34,8 @@ export default function ForSignup({ onSuccess }: IProps): JSX.Element {
   };
 
   return (
-    <FormContext {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+    <FormContext {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <AsyncError asyncError={asyncError} dismiss={dismissAsyncError} />
 
         <FormRow

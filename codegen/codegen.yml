@@ -9,5 +9,6 @@ generates:
       - typescript-react-apollo
     config:
       withHooks: true
+      withRefetchFn: true
       withComponent: false
       withHOC: false

@@ -1,10 +1,13 @@
-import { useQuery } from "@apollo/react-hooks";
 import React from "react";
 import Layout from "../components/ui/Layout";
-import * as queries from "../queries";
+import Spinner from "../components/ui/Spinner";
+import { useMeQuery } from "../generated/react-apollo";
 
 export default function PageProfile(): JSX.Element {
-  const { data } = useQuery(queries.ME);
+  const { data, loading } = useMeQuery();
+
+  if (loading || !data?.me) return <Spinner center />;
+
   const { me } = data;
 
   return (

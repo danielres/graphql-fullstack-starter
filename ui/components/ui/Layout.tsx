@@ -1,8 +1,9 @@
-import { useApolloClient, useMutation, useQuery } from "@apollo/react-hooks";
+import { useApolloClient } from "@apollo/react-hooks";
 import Link from "next/link";
 import React from "react";
-import * as queries from "../../queries";
+import { useMeQuery, useSignoutMutation } from "../../generated/react-apollo";
 import Card from "./Card";
+import Spinner from "./Spinner";
 
 interface IProps {
   children: JSX.Element;
@@ -43,13 +44,12 @@ function LayoutDefault({ children }: { children: JSX.Element }) {
 
 function NavContent() {
   const apolloClient = useApolloClient();
+  const { data, loading } = useMeQuery();
+  const [signout] = useSignoutMutation();
 
-  const { data } = useQuery(queries.ME);
+  if (loading || !data?.me) return <Spinner center />;
+
   const { me } = data;
-
-  const [signout] = useMutation(queries.SIGNOUT, {
-    refetchQueries: ["Me"],
-  });
 
   const onClickSignout = async () => {
     await signout();
