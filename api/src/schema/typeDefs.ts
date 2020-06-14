@@ -3,11 +3,11 @@ import { gql } from "apollo-server-express";
 export default gql`
   type Query {
     hello: String!
-    me: User
+    me: User!
   }
 
   type Mutation {
-    signin(input: InputSignin!): User
+    signin(input: InputSignin!): User!
     signup(input: InputSignup!): User!
     signout: Boolean!
   }
